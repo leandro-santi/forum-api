@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController
 
 /*
     Controller mapped at /hello address
-    a GET requisition will call this (hello() function)
+    a GET requisition will call this (hello() function) as default
 */
 
 @RestController
@@ -15,19 +15,17 @@ class HelloController {
 
     @GetMapping
     fun hello(): String {
+        return "Hello World!"
+    }
+
+    @GetMapping("/greet")
+    fun helloFromObiWan(): String {
         return "Hello There!"
     }
 
-    /*
-        @GetMapping("/greet")
-        fun hello(): String {
-            return "Hello There!"
-        }
-
-        @GetMapping("/answer")
-        fun answer(): String {
-            return "I've been waiting for you!"
-        }
-    */
+    @GetMapping("/answer")
+    fun answerFromGrievous(): String {
+        return "I've been waiting for you!"
+    }
 
 }
