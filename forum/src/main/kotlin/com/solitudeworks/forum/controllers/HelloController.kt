@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.RestController
 /*
     Controller mapped at /hello address
     a GET requisition will call this (hello() function) as default
+    @RequestMapping("/hello") can be mapped
 */
 
 @RestController
-@RequestMapping("/hello")
+@RequestMapping()
 class HelloController {
 
     @GetMapping

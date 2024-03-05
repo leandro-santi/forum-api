@@ -2,7 +2,7 @@ package com.solitudeworks.forum.models
 
 import java.time.LocalDateTime
 
-data class Topic(val id: Int? = null,
+data class Topic(var id: Int? = null,
                  val title: String,
                  val question: String,
                  val date: LocalDateTime = LocalDateTime.now(),
