@@ -39,13 +39,22 @@ class TopicService(
 
     // PUT
     fun updateTopic(topicForm: TopicForm) {
-        for (topic in topics) {
-            if (topic.id == topicForm.id) {
-                topic.title = topicForm.title
-                topic.question = topicForm.question
-                break;
-            }
-        }
+        val topic = topics.stream().filter { topic ->
+            topic.id == topicForm.id
+        }.findFirst().get()
+
+        topics = topics.minus(topic).plus(
+            Topic(
+                id = topicForm.id,
+                title = topicForm.title,
+                question = topicForm.question,
+                author = topic.author,
+                course = topic.course,
+                answers = topic.answers,
+                status = topic.status,
+                date = topic.date
+            )
+        )
     }
 
     // DELETE
@@ -55,6 +64,17 @@ class TopicService(
         }.findFirst().get()
 
         topics = topics.minus(topic)
+    }
+
+    // PATCH
+    fun updateFieldsTopic(topicForm: TopicForm) {
+        for (topic in topics) {
+            if (topic.id == topicForm.id) {
+                topic.title = topicForm.title
+                topic.question = topicForm.question
+                break
+            }
+        }
     }
 
 }
