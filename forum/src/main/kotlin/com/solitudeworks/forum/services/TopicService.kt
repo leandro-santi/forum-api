@@ -1,6 +1,7 @@
 package com.solitudeworks.forum.services
 
 import com.solitudeworks.forum.dtos.TopicDto
+import com.solitudeworks.forum.forms.TopicForm
 import com.solitudeworks.forum.mappers.TopicDtoMapper
 import com.solitudeworks.forum.mappers.TopicViewMapper
 import com.solitudeworks.forum.models.Topic
@@ -29,10 +30,31 @@ class TopicService(
         return topicViewMapper.map(topic)
     }
 
+    // POST
     fun registerTopic(topicDto: TopicDto) {
         val topic = topicDtoMapper.map(topicDto)
         topic.id = topics.size + 1
         topics = topics.plus(topic)
+    }
+
+    // PUT
+    fun updateTopic(topicForm: TopicForm) {
+        for (topic in topics) {
+            if (topic.id == topicForm.id) {
+                topic.title = topicForm.title
+                topic.question = topicForm.question
+                break;
+            }
+        }
+    }
+
+    // DELETE
+    fun deleteTopic(id: Int) {
+        val topic = topics.stream().filter { topic ->
+            topic.id == id
+        }.findFirst().get()
+
+        topics = topics.minus(topic)
     }
 
 }
