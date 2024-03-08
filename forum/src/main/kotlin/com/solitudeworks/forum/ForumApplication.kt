@@ -5,7 +5,7 @@ import org.springframework.boot.runApplication
 
 /*
     This is a basic CRUD
-    GET, POST, PUT, DELETE
+    GET, POST, PUT, DELETE, PATCH
  */
 
 @SpringBootApplication
