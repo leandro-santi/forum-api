@@ -23,14 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder
 @RequestMapping("/topics")
 class TopicController(private val service: TopicService) {
 
-    /*
-        @GetMapping
-        fun sampleRequest() : String {
-            return "Hello Again!"
-        }
-    */
-
-    // GET
+    //region GET
     @GetMapping
     fun listTopics(): List<TopicView> {
         return service.list()
@@ -40,8 +33,9 @@ class TopicController(private val service: TopicService) {
     fun searchById(@PathVariable id: Int): TopicView {
         return service.searchId(id)
     }
+    //endregion GET
 
-    // POST -> Returns code 201 with a response body
+    //region POST -> Returns code 201 with a response body
     @PostMapping
     fun registerTopic(
         @RequestBody @Valid topicDto: TopicDto,
@@ -51,26 +45,30 @@ class TopicController(private val service: TopicService) {
         val uri = uriBuilder.path("/topic/${topicView.id}").build().toUri()
         return ResponseEntity.created(uri).body(topicView)
     }
+    //endregion
 
-    // PUT -> Returns code 200 with a response body
+    //region PUT -> Returns code 200 with a response body
     @PutMapping
     fun updateTopic(@RequestBody @Valid topicForm: TopicForm): ResponseEntity<TopicView> {
         val topicView = service.updateTopic(topicForm)
         return ResponseEntity.ok(topicView)
 
     }
+    //endregion
 
-    // DELETE -> Returns code 204 with no content as response
+    //region DELETE -> Returns code 204 with no content as response
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteTopic(@PathVariable id: Int) {
         service.deleteTopic(id)
     }
+    //endregion
 
-    // PATCH
+    //region PATCH
     @PatchMapping
     fun updateFieldsTopic(@RequestBody @Valid topicForm: TopicForm) {
         service.updateFieldsTopic(topicForm)
     }
+    //endregion
 
 }
