@@ -7,11 +7,13 @@ import com.solitudeworks.forum.exception.NotFoundException
 import com.solitudeworks.forum.mapper.TopicFormMapper
 import com.solitudeworks.forum.mapper.TopicViewMapper
 import com.solitudeworks.forum.model.Topic
+import com.solitudeworks.forum.repository.TopicRepository
 import org.springframework.stereotype.Service
 import java.util.stream.Collectors
 
 @Service
 class TopicService(
+    private val topicRepository: TopicRepository,
     private var topics: List<Topic>,
     private val topicViewMapper: TopicViewMapper,
     private val topicFormMapper: TopicFormMapper,
@@ -20,7 +22,8 @@ class TopicService(
 
     // GET
     fun list(): List<TopicView> =
-        topics
+        topicRepository
+            .findAll()
             .stream()
             .map { topic ->
                 topicViewMapper.map(topic)
@@ -28,14 +31,9 @@ class TopicService(
 
     fun searchById(id: Int): TopicView {
         val topic =
-            topics
-                .stream()
-                .filter { topic ->
-                    topic.id == id
-                }.findFirst()
-                .orElseThrow {
-                    NotFoundException(notFoundExceptionMessage)
-                }
+            topicRepository.findById(id).orElseThrow {
+                NotFoundException(notFoundExceptionMessage)
+            }
 
         return topicViewMapper.map(topic)
     }
@@ -43,53 +41,27 @@ class TopicService(
     // POST
     fun registerTopic(form: TopicForm): TopicView {
         val topic = topicFormMapper.map(form)
-        topic.id = topics.size + 1
-        topics = topics.plus(topic)
+        topicRepository.save(topic)
+
         return topicViewMapper.map(topic)
     }
 
     // PUT
     fun updateTopic(form: UpdateTopicForm): TopicView {
         val topic =
-            topics
-                .stream()
-                .filter { topic ->
-                    topic.id == form.id
-                }.findFirst()
-                .orElseThrow {
-                    NotFoundException(notFoundExceptionMessage)
-                }
+            topicRepository.findById(form.id).orElseThrow {
+                NotFoundException(notFoundExceptionMessage)
+            }
 
-        val updatedTopic =
-            Topic(
-                id = form.id,
-                title = form.title,
-                msg = form.message,
-                user = topic.user,
-                course = topic.course,
-                answers = topic.answers,
-                status = topic.status,
-                date = topic.date,
-            )
+        topic.title = form.title
+        topic.msg = form.message
 
-        topics = topics.minus(topic).plus(updatedTopic)
-
-        return topicViewMapper.map(updatedTopic)
+        return topicViewMapper.map(topic)
     }
 
     // DELETE
     fun deleteTopic(id: Int) {
-        val topic =
-            topics
-                .stream()
-                .filter { topic ->
-                    topic.id == id
-                }.findFirst()
-                .orElseThrow {
-                    NotFoundException(notFoundExceptionMessage)
-                }
-
-        topics = topics.minus(topic)
+        topicRepository.deleteById(id)
     }
 
     // PATCH

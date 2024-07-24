@@ -1,28 +1,12 @@
 package com.solitudeworks.forum.service
 
 import com.solitudeworks.forum.model.Course
+import com.solitudeworks.forum.repository.CourseRepository
 import org.springframework.stereotype.Service
 
 @Service
 class CourseService(
-    private var courses: List<Course>,
+    private val courseRepository: CourseRepository,
 ) {
-    init {
-        val course =
-            Course(
-                id = 1,
-                name = "Kotlin",
-                category = "Programming",
-            )
-
-        courses = listOf(course)
-    }
-
-    fun searchById(id: Int): Course =
-        courses
-            .stream()
-            .filter { course ->
-                course.id == id
-            }.findFirst()
-            .get()
+    fun searchById(id: Int): Course = courseRepository.findById(id).get()
 }

@@ -4,6 +4,7 @@ import com.solitudeworks.forum.dto.forms.TopicForm
 import com.solitudeworks.forum.dto.forms.UpdateTopicForm
 import com.solitudeworks.forum.dto.views.TopicView
 import com.solitudeworks.forum.service.TopicService
+import jakarta.transaction.Transactional
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -27,6 +28,7 @@ class TopicController(
 
     //region POST -> Returns code 201 with a response body
     @PostMapping
+    @Transactional
     fun registerTopic(
         @RequestBody @Valid form: TopicForm,
         uriBuilder: UriComponentsBuilder,
@@ -39,6 +41,7 @@ class TopicController(
 
     //region PUT -> Returns code 200 with a response body
     @PutMapping
+    @Transactional
     fun updateTopic(
         @RequestBody @Valid form: UpdateTopicForm,
     ): ResponseEntity<TopicView> {
@@ -49,6 +52,7 @@ class TopicController(
 
     //region DELETE -> Returns code 204 with no content as response
     @DeleteMapping("/{id}")
+    @Transactional
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteTopic(
         @PathVariable id: Int,
