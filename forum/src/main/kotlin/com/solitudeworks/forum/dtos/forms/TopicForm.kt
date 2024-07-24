@@ -9,6 +9,5 @@ data class TopicForm(
     @field:NotEmpty(message = "It can not be empty.") @field:Size(min = 5, max = 100) val title: String,
     @field:NotEmpty(message = "It can not be empty.") @field:Size(min = 5, max = 300) val message: String,
     @field:NotNull(message = "It can not be null.") val idCourse: Int,
-    @field:NotNull(message = "It can not be null.") val idAuthor: Int
-) {
-}
+    @field:NotNull(message = "It can not be null.") val idAuthor: Int,
+)

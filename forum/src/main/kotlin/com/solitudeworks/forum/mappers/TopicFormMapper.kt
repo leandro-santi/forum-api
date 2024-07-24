@@ -10,16 +10,13 @@ import org.springframework.stereotype.Component
 @Component
 class TopicFormMapper(
     private val courseService: CourseService,
-    private val userService: UserService
+    private val userService: UserService,
 ) : Mapper<TopicForm, Topic> {
-
-    override fun map(t: TopicForm): Topic {
-        return Topic(
+    override fun map(t: TopicForm): Topic =
+        Topic(
             title = t.title,
             msg = t.message,
             course = courseService.searchById(t.idCourse),
-            user = userService.searchById(t.idAuthor)
+            user = userService.searchById(t.idAuthor),
         )
-    }
-
 }

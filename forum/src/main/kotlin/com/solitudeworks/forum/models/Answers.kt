@@ -8,6 +8,5 @@ data class Answers(
     val date: LocalDateTime = LocalDateTime.now(),
     val user: User,
     val topic: Topic,
-    val solution: Boolean
-) {
-}
+    val solution: Boolean,
+)

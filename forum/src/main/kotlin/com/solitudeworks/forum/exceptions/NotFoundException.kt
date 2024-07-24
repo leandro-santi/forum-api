@@ -1,4 +1,5 @@
 package com.solitudeworks.forum.exceptions
 
-class NotFoundException(val msg: String?) : RuntimeException(msg) {
-}
+class NotFoundException(
+    val msg: String?,
+) : RuntimeException(msg)

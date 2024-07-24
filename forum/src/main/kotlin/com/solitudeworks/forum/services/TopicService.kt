@@ -14,24 +14,28 @@ import java.util.stream.Collectors
 class TopicService(
     private var topics: List<Topic>,
     private val topicViewMapper: TopicViewMapper,
-    private val topicFormMapper: TopicFormMapper
+    private val topicFormMapper: TopicFormMapper,
 ) {
-
     private val notFoundExceptionMessage: String = "TOPIC WAS NOT FOUND."
 
     // GET
-    fun list(): List<TopicView> {
-        return topics.stream().map { topic ->
-            topicViewMapper.map(topic)
-        }.collect(Collectors.toList())
-    }
+    fun list(): List<TopicView> =
+        topics
+            .stream()
+            .map { topic ->
+                topicViewMapper.map(topic)
+            }.collect(Collectors.toList())
 
     fun searchById(id: Int): TopicView {
-        val topic = topics.stream().filter { topic ->
-            topic.id == id
-        }.findFirst().orElseThrow {
-            NotFoundException(notFoundExceptionMessage)
-        }
+        val topic =
+            topics
+                .stream()
+                .filter { topic ->
+                    topic.id == id
+                }.findFirst()
+                .orElseThrow {
+                    NotFoundException(notFoundExceptionMessage)
+                }
 
         return topicViewMapper.map(topic)
     }
@@ -46,22 +50,27 @@ class TopicService(
 
     // PUT
     fun updateTopic(form: UpdateTopicForm): TopicView {
-        val topic = topics.stream().filter { topic ->
-            topic.id == form.id
-        }.findFirst().orElseThrow {
-            NotFoundException(notFoundExceptionMessage)
-        }
+        val topic =
+            topics
+                .stream()
+                .filter { topic ->
+                    topic.id == form.id
+                }.findFirst()
+                .orElseThrow {
+                    NotFoundException(notFoundExceptionMessage)
+                }
 
-        val updatedTopic = Topic(
-            id = form.id,
-            title = form.title,
-            msg = form.message,
-            user = topic.user,
-            course = topic.course,
-            answers = topic.answers,
-            status = topic.status,
-            date = topic.date
-        )
+        val updatedTopic =
+            Topic(
+                id = form.id,
+                title = form.title,
+                msg = form.message,
+                user = topic.user,
+                course = topic.course,
+                answers = topic.answers,
+                status = topic.status,
+                date = topic.date,
+            )
 
         topics = topics.minus(topic).plus(updatedTopic)
 
@@ -70,11 +79,15 @@ class TopicService(
 
     // DELETE
     fun deleteTopic(id: Int) {
-        val topic = topics.stream().filter { topic ->
-            topic.id == id
-        }.findFirst().orElseThrow {
-            NotFoundException(notFoundExceptionMessage)
-        }
+        val topic =
+            topics
+                .stream()
+                .filter { topic ->
+                    topic.id == id
+                }.findFirst()
+                .orElseThrow {
+                    NotFoundException(notFoundExceptionMessage)
+                }
 
         topics = topics.minus(topic)
     }
@@ -90,5 +103,4 @@ class TopicService(
         }
         throw NotFoundException(notFoundExceptionMessage)
     }
-
 }

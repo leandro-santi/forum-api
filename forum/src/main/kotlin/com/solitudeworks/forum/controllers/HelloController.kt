@@ -12,22 +12,14 @@ import org.springframework.web.bind.annotation.RestController
 */
 
 @RestController
-@RequestMapping()
+@RequestMapping
 class HelloController {
-
     @GetMapping
-    fun hello(): String {
-        return "Hello World!"
-    }
+    fun hello(): String = "Hello World!"
 
     @GetMapping("/greet")
-    fun helloFromObiWan(): String {
-        return "Hello There!"
-    }
+    fun helloFromObiWan(): String = "Hello There!"
 
     @GetMapping("/answer")
-    fun answerFromGrievous(): String {
-        return "I've been waiting for you!"
-    }
-
+    fun answerFromGrievous(): String = "I've been waiting for you!"
 }

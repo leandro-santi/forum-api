@@ -4,5 +4,5 @@ enum class StatusTopic {
     NOT_ANSWERED,
     NOT_SOLVED,
     SOLVED,
-    CLOSED
+    CLOSED,
 }

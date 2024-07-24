@@ -7,15 +7,12 @@ import org.springframework.stereotype.Component
 
 @Component
 class TopicViewMapper : Mapper<Topic, TopicView> {
-
-    override fun map(t: Topic): TopicView {
-        return TopicView(
+    override fun map(t: Topic): TopicView =
+        TopicView(
             id = t.id,
             title = t.title,
             message = t.msg,
             date = t.date,
-            status = t.status
+            status = t.status,
         )
-    }
-
 }

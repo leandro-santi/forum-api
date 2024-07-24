@@ -12,25 +12,24 @@ import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("/topics")
-class TopicController(private val service: TopicService) {
-
+class TopicController(
+    private val service: TopicService,
+) {
     //region GET
     @GetMapping
-    fun listTopics(): List<TopicView> {
-        return service.list()
-    }
+    fun listTopics(): List<TopicView> = service.list()
 
     @GetMapping("/{id}")
-    fun searchById(@PathVariable id: Int): TopicView {
-        return service.searchById(id)
-    }
+    fun searchById(
+        @PathVariable id: Int,
+    ): TopicView = service.searchById(id)
     //endregion GET
 
     //region POST -> Returns code 201 with a response body
     @PostMapping
     fun registerTopic(
         @RequestBody @Valid form: TopicForm,
-        uriBuilder: UriComponentsBuilder
+        uriBuilder: UriComponentsBuilder,
     ): ResponseEntity<TopicView> {
         val topicView = service.registerTopic(form)
         val uri = uriBuilder.path("/topics/${topicView.id}").build().toUri()
@@ -40,17 +39,20 @@ class TopicController(private val service: TopicService) {
 
     //region PUT -> Returns code 200 with a response body
     @PutMapping
-    fun updateTopic(@RequestBody @Valid form: UpdateTopicForm): ResponseEntity<TopicView> {
+    fun updateTopic(
+        @RequestBody @Valid form: UpdateTopicForm,
+    ): ResponseEntity<TopicView> {
         val topicView = service.updateTopic(form)
         return ResponseEntity.ok(topicView)
-
     }
     //endregion
 
     //region DELETE -> Returns code 204 with no content as response
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteTopic(@PathVariable id: Int) {
+    fun deleteTopic(
+        @PathVariable id: Int,
+    ) {
         service.deleteTopic(id)
     }
     //endregion
@@ -58,9 +60,10 @@ class TopicController(private val service: TopicService) {
     //region PATCH
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    fun updateFieldsTopic(@RequestBody @Valid form: UpdateTopicForm) {
+    fun updateFieldsTopic(
+        @RequestBody @Valid form: UpdateTopicForm,
+    ) {
         service.updateFieldsTopic(form)
     }
     //endregion
-
 }
