@@ -1,4 +1,4 @@
-package com.solitudeworks.forum.models
+package com.solitudeworks.forum.model
 
 data class Course(
     val id: Int? = null,

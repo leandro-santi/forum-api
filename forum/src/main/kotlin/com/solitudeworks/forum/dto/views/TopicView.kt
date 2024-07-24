@@ -1,6 +1,6 @@
-package com.solitudeworks.forum.dtos.views
+package com.solitudeworks.forum.dto.views
 
-import com.solitudeworks.forum.models.StatusTopic
+import com.solitudeworks.forum.model.StatusTopic
 import java.time.LocalDateTime
 
 data class TopicView(

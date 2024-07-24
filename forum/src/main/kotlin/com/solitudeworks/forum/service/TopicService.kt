@@ -1,12 +1,12 @@
-package com.solitudeworks.forum.services
+package com.solitudeworks.forum.service
 
-import com.solitudeworks.forum.dtos.forms.TopicForm
-import com.solitudeworks.forum.dtos.forms.UpdateTopicForm
-import com.solitudeworks.forum.dtos.views.TopicView
-import com.solitudeworks.forum.exceptions.NotFoundException
-import com.solitudeworks.forum.mappers.TopicFormMapper
-import com.solitudeworks.forum.mappers.TopicViewMapper
-import com.solitudeworks.forum.models.Topic
+import com.solitudeworks.forum.dto.forms.TopicForm
+import com.solitudeworks.forum.dto.forms.UpdateTopicForm
+import com.solitudeworks.forum.dto.views.TopicView
+import com.solitudeworks.forum.exception.NotFoundException
+import com.solitudeworks.forum.mapper.TopicFormMapper
+import com.solitudeworks.forum.mapper.TopicViewMapper
+import com.solitudeworks.forum.model.Topic
 import org.springframework.stereotype.Service
 import java.util.stream.Collectors
 

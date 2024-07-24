@@ -1,4 +1,4 @@
-package com.solitudeworks.forum.dtos.views
+package com.solitudeworks.forum.dto.views
 
 import java.time.LocalDateTime
 

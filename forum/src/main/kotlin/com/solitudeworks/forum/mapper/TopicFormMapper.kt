@@ -1,10 +1,10 @@
-package com.solitudeworks.forum.mappers
+package com.solitudeworks.forum.mapper
 
-import com.solitudeworks.forum.dtos.forms.TopicForm
-import com.solitudeworks.forum.interfaces.Mapper
-import com.solitudeworks.forum.models.Topic
-import com.solitudeworks.forum.services.CourseService
-import com.solitudeworks.forum.services.UserService
+import com.solitudeworks.forum.dto.forms.TopicForm
+import com.solitudeworks.forum.model.Topic
+import com.solitudeworks.forum.service.CourseService
+import com.solitudeworks.forum.service.UserService
+import com.solitudeworks.forum.util.Mapper
 import org.springframework.stereotype.Component
 
 @Component

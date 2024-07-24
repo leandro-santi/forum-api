@@ -1,6 +1,6 @@
-package com.solitudeworks.forum.exceptions
+package com.solitudeworks.forum.exception
 
-import com.solitudeworks.forum.dtos.views.ErrorView
+import com.solitudeworks.forum.dto.views.ErrorView
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException

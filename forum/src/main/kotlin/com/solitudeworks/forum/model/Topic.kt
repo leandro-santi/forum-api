@@ -1,4 +1,4 @@
-package com.solitudeworks.forum.models
+package com.solitudeworks.forum.model
 
 import java.time.LocalDateTime
 

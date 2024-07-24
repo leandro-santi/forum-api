@@ -1,9 +1,9 @@
-package com.solitudeworks.forum.controllers
+package com.solitudeworks.forum.controller
 
-import com.solitudeworks.forum.dtos.forms.TopicForm
-import com.solitudeworks.forum.dtos.forms.UpdateTopicForm
-import com.solitudeworks.forum.dtos.views.TopicView
-import com.solitudeworks.forum.services.TopicService
+import com.solitudeworks.forum.dto.forms.TopicForm
+import com.solitudeworks.forum.dto.forms.UpdateTopicForm
+import com.solitudeworks.forum.dto.views.TopicView
+import com.solitudeworks.forum.service.TopicService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

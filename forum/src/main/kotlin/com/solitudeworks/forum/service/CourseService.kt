@@ -1,6 +1,6 @@
-package com.solitudeworks.forum.services
+package com.solitudeworks.forum.service
 
-import com.solitudeworks.forum.models.Course
+import com.solitudeworks.forum.model.Course
 import org.springframework.stereotype.Service
 
 @Service
