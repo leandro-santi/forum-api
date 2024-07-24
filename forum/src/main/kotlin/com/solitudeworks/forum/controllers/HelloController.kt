@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 /*
+    This is a basic controller sample
     Controller mapped at /hello address
     a GET requisition will call this (hello() function) as default
     @RequestMapping("/hello") can be mapped

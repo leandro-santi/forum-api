@@ -1,6 +1,6 @@
 package com.solitudeworks.forum.exceptions
 
-import com.solitudeworks.forum.views.ErrorView
+import com.solitudeworks.forum.dtos.views.ErrorView
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -13,7 +13,7 @@ class ExceptionHandler {
 
     @ExceptionHandler(NotFoundException::class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    fun notFoundHandler(
+    fun handlerNotFound(
         exception: NotFoundException,
         request: HttpServletRequest
     ): ErrorView {
@@ -27,7 +27,7 @@ class ExceptionHandler {
 
     @ExceptionHandler(Exception::class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    fun errorServerHandler(
+    fun handlerServerError(
         exception: Exception,
         request: HttpServletRequest
     ): ErrorView {
@@ -41,7 +41,7 @@ class ExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    fun errorValidationHandler(
+    fun handlerValidationError(
         exception: MethodArgumentNotValidException,
         request: HttpServletRequest
     ): ErrorView {

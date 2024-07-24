@@ -1,8 +1,8 @@
 package com.solitudeworks.forum.models
 
-data class Course(
+data class User(
     val id: Int? = null,
     val name: String,
-    val category: String
+    val email: String
 ) {
 }

@@ -1,22 +1,13 @@
 package com.solitudeworks.forum.controllers
 
-import com.solitudeworks.forum.dtos.TopicDto
-import com.solitudeworks.forum.forms.TopicForm
+import com.solitudeworks.forum.dtos.forms.TopicForm
+import com.solitudeworks.forum.dtos.forms.UpdateTopicForm
+import com.solitudeworks.forum.dtos.views.TopicView
 import com.solitudeworks.forum.services.TopicService
-import com.solitudeworks.forum.views.TopicView
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
@@ -31,26 +22,26 @@ class TopicController(private val service: TopicService) {
 
     @GetMapping("/{id}")
     fun searchById(@PathVariable id: Int): TopicView {
-        return service.searchId(id)
+        return service.searchById(id)
     }
     //endregion GET
 
     //region POST -> Returns code 201 with a response body
     @PostMapping
     fun registerTopic(
-        @RequestBody @Valid topicDto: TopicDto,
+        @RequestBody @Valid form: TopicForm,
         uriBuilder: UriComponentsBuilder
     ): ResponseEntity<TopicView> {
-        val topicView = service.registerTopic(topicDto)
-        val uri = uriBuilder.path("/topic/${topicView.id}").build().toUri()
+        val topicView = service.registerTopic(form)
+        val uri = uriBuilder.path("/topics/${topicView.id}").build().toUri()
         return ResponseEntity.created(uri).body(topicView)
     }
     //endregion
 
     //region PUT -> Returns code 200 with a response body
     @PutMapping
-    fun updateTopic(@RequestBody @Valid topicForm: TopicForm): ResponseEntity<TopicView> {
-        val topicView = service.updateTopic(topicForm)
+    fun updateTopic(@RequestBody @Valid form: UpdateTopicForm): ResponseEntity<TopicView> {
+        val topicView = service.updateTopic(form)
         return ResponseEntity.ok(topicView)
 
     }
@@ -66,8 +57,9 @@ class TopicController(private val service: TopicService) {
 
     //region PATCH
     @PatchMapping
-    fun updateFieldsTopic(@RequestBody @Valid topicForm: TopicForm) {
-        service.updateFieldsTopic(topicForm)
+    @ResponseStatus(HttpStatus.OK)
+    fun updateFieldsTopic(@RequestBody @Valid form: UpdateTopicForm) {
+        service.updateFieldsTopic(form)
     }
     //endregion
 

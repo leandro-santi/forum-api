@@ -10,16 +10,16 @@ class CourseService(private var courses: List<Course>) {
         val course = Course(
             id = 1,
             name = "Kotlin",
-            field = "Programming"
+            category = "Programming"
         )
 
         courses = listOf(course)
     }
 
     fun searchById(id: Int): Course {
-        return courses.first { course ->
+        return courses.stream().filter { course ->
             course.id == id
-        }
+        }.findFirst().get()
     }
 
 }
