@@ -11,7 +11,7 @@ class TopicViewMapper : Mapper<Topic, TopicView> {
         TopicView(
             id = t.id,
             title = t.title,
-            message = t.msg,
+            message = t.message,
             date = t.date,
             status = t.status,
         )

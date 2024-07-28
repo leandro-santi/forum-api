@@ -54,7 +54,7 @@ class TopicService(
             }
 
         topic.title = form.title
-        topic.msg = form.message
+        topic.message = form.message
 
         return topicViewMapper.map(topic)
     }
@@ -69,7 +69,7 @@ class TopicService(
         for (topic in topics) {
             if (topic.id == form.id) {
                 topic.title = form.title
-                topic.msg = form.message
+                topic.message = form.message
                 return
             }
         }
