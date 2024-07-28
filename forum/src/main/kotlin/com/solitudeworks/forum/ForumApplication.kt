@@ -2,6 +2,7 @@ package com.solitudeworks.forum
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.cache.annotation.EnableCaching
 
 /*
     This is a basic CRUD sample simulating forum posts
@@ -9,6 +10,7 @@ import org.springframework.boot.runApplication
 */
 
 @SpringBootApplication
+@EnableCaching
 class ForumApplication
 
 fun main(args: Array<String>) {

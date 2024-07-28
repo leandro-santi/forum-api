@@ -16,5 +16,5 @@ data class Answer(
     @ManyToOne
     @JoinColumn(name = "topic_id")
     val topic: Topic,
-    val solution: Boolean
+    val solution: Boolean,
 )

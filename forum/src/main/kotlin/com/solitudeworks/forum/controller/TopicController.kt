@@ -6,6 +6,8 @@ import com.solitudeworks.forum.dto.views.TopicView
 import com.solitudeworks.forum.service.TopicService
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
@@ -22,12 +24,14 @@ class TopicController(
 ) {
     //region GET
     @GetMapping
+    @Cacheable("topics")
     fun listTopics(
         @RequestParam(required = false) nameCourse: String?,
         @PageableDefault(size = 5, sort = ["date"], direction = Sort.Direction.DESC) pagination: Pageable,
     ): Page<TopicView> = service.list(nameCourse, pagination)
 
     @GetMapping("/{id}")
+    @Cacheable("topics/{id}")
     fun searchTopicsById(
         @PathVariable id: Int,
     ): TopicView = service.searchById(id)
@@ -36,6 +40,7 @@ class TopicController(
     //region POST -> Returns code 201 with a response body
     @PostMapping
     @Transactional
+    @CacheEvict(value = ["topics"], allEntries = true)
     fun registerTopic(
         @RequestBody @Valid form: TopicForm,
         uriBuilder: UriComponentsBuilder,
@@ -49,6 +54,7 @@ class TopicController(
     //region PUT -> Returns code 200 with a response body
     @PutMapping
     @Transactional
+    @CacheEvict(value = ["topics"], allEntries = true)
     fun updateTopic(
         @RequestBody @Valid form: UpdateTopicForm,
     ): ResponseEntity<TopicView> {
@@ -60,6 +66,7 @@ class TopicController(
     //region DELETE -> Returns code 204 with no content as response
     @DeleteMapping("/{id}")
     @Transactional
+    @CacheEvict(value = ["topics"], allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteTopic(
         @PathVariable id: Int,
