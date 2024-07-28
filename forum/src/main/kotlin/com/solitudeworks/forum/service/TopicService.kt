@@ -8,8 +8,9 @@ import com.solitudeworks.forum.mapper.TopicFormMapper
 import com.solitudeworks.forum.mapper.TopicViewMapper
 import com.solitudeworks.forum.model.Topic
 import com.solitudeworks.forum.repository.TopicRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import java.util.stream.Collectors
 
 @Service
 class TopicService(
@@ -21,13 +22,20 @@ class TopicService(
     private val notFoundExceptionMessage: String = "TOPIC WAS NOT FOUND."
 
     // GET
-    fun list(): List<TopicView> =
-        topicRepository
-            .findAll()
-            .stream()
-            .map { topic ->
-                topicViewMapper.map(topic)
-            }.collect(Collectors.toList())
+    fun list(
+        nameCourse: String?,
+        pagination: Pageable,
+    ): Page<TopicView> {
+        val topics =
+            if (nameCourse == null) {
+                topicRepository
+                    .findAll(pagination)
+            } else {
+                topicRepository
+                    .findByCourseName(nameCourse, pagination)
+            }
+        return topics.map { topic -> topicViewMapper.map(topic) }
+    }
 
     fun searchById(id: Int): TopicView {
         val topic =
