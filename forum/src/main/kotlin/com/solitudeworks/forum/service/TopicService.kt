@@ -2,6 +2,7 @@ package com.solitudeworks.forum.service
 
 import com.solitudeworks.forum.dto.forms.TopicForm
 import com.solitudeworks.forum.dto.forms.UpdateTopicForm
+import com.solitudeworks.forum.dto.views.TopicByCategoryView
 import com.solitudeworks.forum.dto.views.TopicView
 import com.solitudeworks.forum.exception.NotFoundException
 import com.solitudeworks.forum.mapper.TopicFormMapper
@@ -45,6 +46,8 @@ class TopicService(
 
         return topicViewMapper.map(topic)
     }
+
+    fun report(): List<TopicByCategoryView> = topicRepository.report()
 
     // POST
     fun registerTopic(form: TopicForm): TopicView {

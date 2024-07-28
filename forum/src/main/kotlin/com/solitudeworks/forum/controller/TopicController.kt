@@ -2,6 +2,7 @@ package com.solitudeworks.forum.controller
 
 import com.solitudeworks.forum.dto.forms.TopicForm
 import com.solitudeworks.forum.dto.forms.UpdateTopicForm
+import com.solitudeworks.forum.dto.views.TopicByCategoryView
 import com.solitudeworks.forum.dto.views.TopicView
 import com.solitudeworks.forum.service.TopicService
 import jakarta.transaction.Transactional
@@ -35,6 +36,9 @@ class TopicController(
     fun searchTopicsById(
         @PathVariable id: Int,
     ): TopicView = service.searchById(id)
+
+    @GetMapping("/report")
+    fun report(): List<TopicByCategoryView> = service.report()
     //endregion GET
 
     //region POST -> Returns code 201 with a response body

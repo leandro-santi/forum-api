@@ -8,3 +8,5 @@ create table courses
 
 insert into courses
 values (1, 'Kotlin', 'Programming');
+insert into courses
+values (2, 'Java', 'Embedded');
